@@ -1023,7 +1023,6 @@
                 setActiveProject(url);
 
                 if (push) {
-                    const cleanUrl = url.replace(".html", "");
                     history.pushState({ project: url }, "", cleanUrl);
                 }
             });
@@ -1073,5 +1072,6 @@
 
 
 </script>
+
 
 </html>
