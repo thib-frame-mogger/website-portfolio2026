@@ -1,0 +1,1075 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Thibault Zajac</title>
+
+    <style>
+        @font-face {
+            font-family: "Helvetica Neue";
+            src:
+                url("./font/helveticaneue.woff2") format("woff2"),
+                url("./font/helveticaneue.woff") format("woff");
+            font-weight: 400;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Helvetica Neue";
+            src:
+                url("./font/helveticaneue-bold.woff2") format("woff2"),
+                url("./font/helveticaneue-bold.woff") format("woff");
+            font-weight: 700;
+            font-style: normal;
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Helvetica Neue";
+            src:
+                url("./font/helveticaneue-thin.woff2") format("woff2"),
+                url("./font/helveticaneue-thin.woff") format("woff");
+            font-weight: 300;
+            font-style: normal;
+            font-display: swap;
+        }
+
+
+        /* 2️⃣ Racine (tailles globales, variables plus tard) */
+        :root {
+            font-size: 1rem;
+        }
+
+        /* 3️⃣ Reset léger */
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            color: #000;
+            font-family:
+                "Helvetica Neue";
+            font-size: 1.6rem;
+            /* = 16px */
+        }
+
+        .site-header {
+            border-bottom: 1px solid #ddd;
+        }
+
+        .header-inner {
+            max-width: 1480px;
+            margin: 0 auto;
+            padding: 6px 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo {
+            display: inline-flex;
+            align-items: center;
+            text-decoration: none;
+        }
+
+        .logo svg {
+            display: block;
+            fill: #000;
+            width: 32px;
+            height: auto;
+        }
+
+        .site-title {
+            margin-left: 8px;
+            font-size: 1rem;
+            font-weight: 700;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: black;
+        }
+
+        .contact-button {
+            font-family: inherit;
+            font-size: 1rem;
+            background: none;
+            border: 1px solid #000;
+            padding: 4px 4px;
+            cursor: pointer;
+        }
+
+        .contact-button:hover {
+            background: #000;
+            color: #fff;
+        }
+
+        .contact-panel {
+            display: none;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .contact-panel.open {
+            display: block;
+        }
+
+        .contact-inner {
+            max-width: 1480px;
+            margin: 0 auto;
+            padding: 4px 0;
+            font-size: 1rem;
+            font-weight: 300;
+        }
+
+        .contact-inner a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .social-link {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 18px;
+            height: 18px;
+            margin: 0 4px;
+        }
+
+        .social-link svg {
+            width: 100%;
+            height: 100%;
+            fill: currentColor;
+        }
+
+        .social-link:hover {
+            color: #555;
+        }
+
+        .site-main {
+            padding-top: 8px;
+        }
+
+        .main-inner {
+            max-width: 1480px;
+            margin: 0 auto;
+            display: flex;
+        }
+
+        /* Colonne gauche : sommaire */
+        .project-index {
+            width: 12%;
+            min-width: 100px;
+            padding-right: 8px;
+        }
+
+        .project-index ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .project-index li {
+            margin-bottom: 8px;
+            line-height: 0.6rem;
+        }
+
+        .project-index a {
+            color: inherit;
+            text-decoration: none;
+            font-size: 0.8rem;
+            font-weight: 300;
+        }
+
+        .project-index a:hover {
+            text-decoration: none;
+        }
+
+        .project-index a.is-active {
+            font-weight: 700;
+        }
+
+        .project-index a[data-filter] {
+            display: block;
+            margin-top: 20px;
+        }
+
+        /* Zone principale */
+        .project-content {
+            flex: 1;
+            padding-left: 16px;
+            border-left: 1px solid #ddd;
+            font-size: 1rem;
+            display: block;
+        }
+
+        .project-content.is-detail {
+            display: block;
+        }
+
+        .project-content.is-detail .projects-grid {
+            display: none;
+        }
+
+        /* Grille de projets */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 42px;
+        }
+
+        /* Bloc projet */
+        .project-item {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .project-item:hover .project-title {
+            text-decoration: none;
+        }
+
+        /* Image carrée */
+        .project-image {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            overflow: hidden;
+            background: white;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* Meta sous l’image */
+        .project-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-top: 6px;
+        }
+
+        /* Titre */
+        .project-title {
+            margin: 0;
+            font-size: 0.9rem;
+            font-weight: 400;
+        }
+
+        /* Légende à droite */
+        .project-caption {
+            font-size: 0.75rem;
+            font-weight: 300;
+            white-space: nowrap;
+        }
+
+        .project-index a.active {
+            font-weight: 700;
+        }
+
+        .project-item.is-muted {
+            opacity: 0.35;
+            pointer-events: none;
+        }
+
+        .project-item.is-muted .project-image {
+            background-image: repeating-linear-gradient(45deg,
+                    rgba(0, 0, 0, 0.05),
+                    rgba(0, 0, 0, 0.05) 2px,
+                    transparent 2px,
+                    transparent 6px);
+        }
+
+        /* Détails projet */
+        .project-detail {
+            width: 100%;
+            padding-top: 40px;
+        }
+
+        .project-detail-image {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        .project-detail-image img {
+            max-width: 50%;
+            height: auto;
+        }
+
+        .project-detail-title {
+            margin-top: 24px;
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        .project-detail-text {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        #project-view {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+        }
+
+        #project-view figure {
+            margin: 0;
+        }
+
+        #project-view img {
+            display: block;
+            max-width: 100%;
+            height: auto;
+            margin: 0 auto;
+        }
+
+        #project-view h1 {
+            font-size: 1.4rem;
+            font-weight: 400;
+            margin-top: 12px;
+        }
+
+        #project-view p {
+            font-size: 0.9rem;
+            font-weight: 300;
+            max-width: 600px;
+        }
+
+        /* =========================================
+   DERNIÈRE RÉCOLTE
+========================================= */
+
+        .project--derniere-recolte {
+            width: 100%;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* HERO GIF */
+
+        .project--derniere-recolte .project-detail-image {
+            display: flex;
+            justify-content: center;
+        }
+
+        .project--derniere-recolte .project-detail-image img {
+            width: 30%;
+            max-width: 1000px;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+
+        /* TITRE */
+
+        .project--derniere-recolte .project-detail-title {
+            max-width: 1000px;
+            margin: 2rem auto 0 auto;
+            text-align: center;
+            font-weight: 400;
+            font-size: clamp(2.5rem, 4vw, 4rem);
+        }
+
+        .project--derniere-recolte .project-detail-subtitle {
+            font-style: italic;
+            font-size: 0.6em;
+            opacity: 0.7;
+            margin-left: 0.4em;
+        }
+
+        /* TEXTE */
+
+        .project--derniere-recolte .project-detail-text {
+            max-width: 1000px;
+            margin: 1.5rem auto 0 auto;
+            text-align: center;
+            font-size: 1rem;
+        }
+
+        /* Ligne italique spécifique */
+
+        .project--derniere-recolte .project-detail-text .project-note {
+            display: block;
+            margin-top: 1rem;
+            font-style: italic;
+            opacity: 0.8;
+        }
+
+        /* GALERIE STACKÉE */
+
+        .project--derniere-recolte .project-gallery-stack {
+            max-width: 1000px;
+            margin: 5rem auto 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+        }
+
+        .project--derniere-recolte .project-gallery-stack img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* =========================================
+   LAYING DIMES — MAKING DOLLARS (ZINE)
+========================================= */
+
+        .project--laying-dimes-making-dollars {
+            width: 100%;
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .project--laying-dimes-making-dollars .project-detail-title,
+        .project--laying-dimes-making-dollars .project-detail-text {
+            width: 100%;
+        }
+
+        .project--laying-dimes-making-dollars .zine-stack {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.4rem;
+            /* respiration contemplative */
+            margin-bottom: 5rem;
+            /* séparation avec le texte */
+        }
+
+        .project--laying-dimes-making-dollars .zine-stack img {
+            width: 100%;
+            max-width: 1200px;
+            /* dimension éditoriale */
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* =========================================
+   SHACKLES & CHAINS
+========================================= */
+
+        .project--shackles-chains {
+            width: 100%;
+            max-width: 1200px;
+            /* ← TU REDIMENSIONNES ICI */
+            margin: 0 auto;
+        }
+
+        /* Le texte et le titre suivent la largeur projet */
+
+        .project--shackles-chains .project-detail-title,
+        .project--shackles-chains .project-detail-text {
+            width: 100%;
+        }
+
+        /* Première image (hero silencieux) */
+
+        .project--shackles-chains .project-detail-image {
+            margin-bottom: 4rem;
+        }
+
+        .project--shackles-chains .project-detail-image img {
+            width: 100%;
+            max-width: 1100px;
+            /* optionnel si tu veux limiter */
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Galerie après texte */
+
+        .project--shackles-chains .project-split-layout {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            /* 2/3 — 1/3 */
+            gap: 2rem;
+            margin-top: 5rem;
+            align-items: start;
+        }
+
+        .project--shackles-chains .project-left-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+        }
+
+        .project--shackles-chains .project-left-grid img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        .project--shackles-chains .project-right-vertical img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        @media (max-width: 800px) {
+            .project--shackles-chains .project-split-layout {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* =========================================
+   BOWLS
+   ========================================= */
+
+        .project--bowls {
+            width: 100%;
+            max-width: 900px;
+            /* ← TU REDIMENSIONNES ICI */
+            margin: 0 auto;
+        }
+
+        /* Le titre et le texte suivent naturellement */
+
+        .project--bowls .project-detail-title,
+        .project--bowls .project-detail-text {
+            width: 100%;
+        }
+
+        /* Hero image */
+
+        .project--bowls .project-detail-image {
+            margin-bottom: 4rem;
+        }
+
+        .project--bowls .project-detail-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Galerie 3 colonnes scalable */
+
+        .project--bowls .project-detail-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 5rem;
+        }
+
+        .project--bowls .project-detail-gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* =========================================
+   fAUNE
+   ========================================= */
+
+        .project--faune {
+            width: 100%;
+            max-width: 900px;
+            /* ← TU REDIMENSIONNES ICI */
+            margin: 0 auto;
+        }
+
+        /* Le titre et le texte suivent naturellement */
+
+        .project--faune .project-detail-title,
+        .project--faune .project-detail-text {
+            width: 100%;
+        }
+
+        /* Hero image */
+
+        .project--faune .project-detail-image {
+            margin-bottom: 4rem;
+        }
+
+        .project--faune .project-detail-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Galerie 3 colonnes scalable */
+
+        .project--faune .project-detail-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 5rem;
+        }
+
+        .project--faune .project-detail-gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* =========================================
+   BAPTISTERY
+   ========================================= */
+
+        .project--baptistery {
+            width: 100%;
+            max-width: 900px;
+            /* ← TU REDIMENSIONNES ICI */
+            margin: 0 auto;
+        }
+
+        /* Le titre et le texte suivent naturellement */
+
+        .project--baptistery .project-detail-title,
+        .project--baptistery .project-detail-text {
+            width: 100%;
+        }
+
+        /* Hero image */
+
+        .project--baptistery .project-detail-image {
+            margin-bottom: 4rem;
+        }
+
+        .project--baptistery .project-detail-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Galerie 3 colonnes scalable */
+
+        .project--baptistery .project-detail-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 5rem;
+        }
+
+        .project--baptistery .project-detail-gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* =========================================
+  BAVIERE
+   ========================================= */
+
+        .project--baviere {
+            width: 100%;
+            max-width: 900px;
+            /* ← TU REDIMENSIONNES ICI */
+            margin: 0 auto;
+        }
+
+        /* Le titre et le texte suivent naturellement */
+
+        .project--baviere .project-detail-title,
+        .project--baviere .project-detail-text {
+            width: 100%;
+        }
+
+        /* Hero image */
+
+        .project--baviere .project-detail-image {
+            margin-bottom: 4rem;
+        }
+
+        .project--baviere .project-detail-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Galerie 3 colonnes scalable */
+
+        .project--baviere .project-detail-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 5rem;
+        }
+
+        .project--baviere .project-detail-gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="site-header">
+        <div class="header-inner">
+
+            <a href="/" class="logo" aria-label="Accueil">
+                <svg viewBox="0 0 186 240" role="img" aria-hidden="true">
+                    <polygon
+                        points="158.44 0 85.32 110.9 39.08 110.92 39.09 130.07 72.66 130.1 .24 239.96 .24 0 158.44 0" />
+                    <polygon
+                        points="186 .71 186 240 28.24 240 100.89 129.59 147.18 129.56 147.13 110.41 113.55 110.38 186 .71" />
+                </svg>
+                <span class="site-title">THIBAULT ZAJAC</span>
+            </a>
+
+            <button class="contact-button" id="contactToggle">
+                CONTACT
+            </button>
+
+        </div>
+    </header>
+
+    <div class="contact-panel" id="contactPanel">
+        <div class="contact-inner">
+            <p>Email : contact@thibzajac.fr</p>
+            <p>
+                <a href="https://www.instagram.com/thzjc/" target="_blank" aria-label="Instagram" class="social-link">
+
+
+                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M20.445 5h-8.891A6.559 6.559 0 0 0 5 11.554v8.891A6.559 6.559 0 0 0 11.554 27h8.891a6.56 6.56 0 0 0 6.554-6.555v-8.891A6.557 6.557 0 0 0 20.445 5zm4.342 15.445a4.343 4.343 0 0 1-4.342 4.342h-8.891a4.341 4.341 0 0 1-4.341-4.342v-8.891a4.34 4.34 0 0 1 4.341-4.341h8.891a4.342 4.342 0 0 1 4.341 4.341l.001 8.891z">
+                        </path>
+                        <path
+                            d="M16 10.312c-3.138 0-5.688 2.551-5.688 5.688s2.551 5.688 5.688 5.688 5.688-2.551 5.688-5.688-2.55-5.688-5.688-5.688zm0 9.163a3.475 3.475 0 1 1-.001-6.95 3.475 3.475 0 0 1 .001 6.95zM21.7 8.991a1.363 1.363 0 1 1-1.364 1.364c0-.752.51-1.364 1.364-1.364z">
+                        </path>
+                    </svg>
+
+                </a>
+
+                <a href="https://fr.pinterest.com/zajacth/_profile/" target="_blank" aria-label="Pinterest"
+                    class="social-link">
+                    <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M9.313 23.75l-0.156 0.563c-0.219 0.906-0.719 1.75-1.156 2.438 1.063 0.281 2.094 0.438 3.188 0.438 3.094 0 5.875-1.219 7.938-3.25 2.031-2.031 3.281-4.844 3.281-7.938s-1.25-5.906-3.281-7.938c-2.063-2.031-4.844-3.281-7.938-3.281s-5.875 1.25-7.906 3.281c-2.063 2.031-3.281 4.844-3.281 7.938 0 2.313 0.656 4.438 1.875 6.188 1.188 1.75 2.875 3.188 4.813 4.031-0.031-0.781 0.031-1.656 0.219-2.5 0.031-0.25 0.125-0.625 0.25-1.125 0.094-0.438 0.25-1.063 0.438-1.875 0.188-0.781 0.438-1.813 0.719-3.125-0.094-0.188-0.156-0.375-0.188-0.594-0.125-0.406-0.188-0.781-0.156-1.188 0-1.625 0.938-2.906 2.188-2.906 1.031 0 1.5 0.781 1.5 1.688 0 0.5-0.156 1.094-0.375 1.813-0.25 0.75-0.469 1.406-0.625 2.156-0.156 0.594 0 1.125 0.344 1.531 0.344 0.375 0.875 0.625 1.438 0.625 1.063 0 1.938-0.656 2.563-1.75s1-2.594 1-4.219c0-1.219-0.406-2.25-1.219-3.031s-1.969-1.219-3.469-1.219c-1.688 0-3.063 0.594-4.031 1.594s-1.5 2.344-1.5 3.781c0 0.906 0.281 1.594 0.781 2.156 0.156 0.25 0.219 0.344 0.156 0.625-0.031 0.094-0.094 0.25-0.125 0.438-0.094 0.406-0.125 0.938-0.688 0.75-1.563-0.625-2.281-2.375-2.281-4.313 0-1.594 0.656-3.313 2-4.656 1.344-1.375 3.375-2.313 6-2.313 2.156 0 3.938 0.75 5.188 1.969 1.25 1.188 1.906 2.813 1.906 4.438 0 2.219-0.594 4.125-1.656 5.5s-2.594 2.188-4.375 2.188c-1.219 0-2.344-0.625-2.75-1.406-0.188 0.688-0.313 1.188-0.406 1.563-0.094 0.406-0.156 0.75-0.219 0.938z">
+                        </path>
+                    </svg>
+                </a>
+
+            </p>
+        </div>
+    </div>
+
+    <main class="site-main">
+        <div class="main-inner">
+
+            <aside class="project-index">
+                <ul>
+                    <li><a href="#" data-filter="all">All</a></li>
+
+                    <li><a href="#" data-filter="2026">2026</a></li>
+                    <li><a href="/projects/withered.html" data-dynamic>Withered</a></li>
+                    <li><a href="/projects/edelweiss.html" data-dynamic>Edelweiss</a></li>
+                    <li><a href="/projects/zeppelin.html" data-dynamic>Zeppelin</a></li>
+                    <li><a href="/projects/lambert.html" data-dynamic>Lambert</a></li>
+
+                    <li><a href="#" data-filter="2025">2025</a></li>
+                    <li><a href="/projects/baviere.html" data-dynamic>Bavière</a></li>
+                    <li><a href="/projects/derniere-recolte.html" data-dynamic>Dernière Récolte</a></li>
+                    <li><a href="/projects/baptistery.html" data-dynamic>Baptistery</a></li>
+
+                    <li><a href="#" data-filter="2024">2024</a></li>
+
+                    <li><a href="/projects/candlestick.html" data-dynamic>Candlestick</a></li>
+                    <li><a href="/projects/bol.html" data-dynamic>Bowls</a></li>
+                    <li><a href="/projects/shackles&chains.html" data-dynamic>Shackles & Chains</a></li>
+                    <li><a href="/projects/laying-dimes-making-dollars.html" data-dynamic>Laying Dimes - Making
+                            Dollars</a></li>
+                </ul>
+            </aside>
+
+            <section class="project-content">
+
+                <div id="project-view" hidden></div>
+
+                <div class="projects-grid">
+
+                    <a href="/projects/withered.html" class="project-item" data-year="2026" data-dynamic>
+
+                        <div class="project-image">
+                            <img src="img/withered3.png" alt="Withered">
+                        </div>
+
+                        <div class="project-meta">
+                            <h3 class="project-title">Withered</h3>
+                            <span class="project-caption">2026 · lampshade</span>
+                        </div>
+
+                    </a>
+
+                    <a href="/projects/edelweiss.html" class="project-item" data-year="2026" data-dynamic>
+                        <div class="project-image">
+                            <img src="img/edelweiss-render.png" alt="Edelweiss">
+                        </div>
+                        <div class="project-meta">
+                            <h3 class="project-title">Edelweiss</h3>
+                            <span class="project-caption">2026 · light fixture</span>
+                        </div>
+                    </a>
+
+                    <a href="/projects/zeppelin.html" class="project-item" data-year="2026" data-dynamic>
+                        <div class="project-image">
+                            <img src="img/zeppelin-render.png" alt="Zeppelin">
+                        </div>
+                        <div class="project-meta">
+                            <h3 class="project-title">Zeppelin</h3>
+                            <span class="project-caption">2026 · watering can</span>
+                        </div>
+                    </a>
+
+                    <a href="/projects/lambert.html" class="project-item" data-year="2026" data-dynamic>
+                        <div class="project-image">
+                            <img src="img/lambert.png" alt="Lambert">
+                        </div>
+                        <div class="project-meta">
+                            <h3 class="project-title">Lambert</h3>
+                            <span class="project-caption">2026 · giant</span>
+
+                        </div>
+                    </a>
+
+                    <a href="/projects/baviere.html" class="project-item" data-year="2025" data-dynamic>
+                        <div class="project-image">
+                            <img src="img/baviere-1.png" alt="Bavière">
+                        </div>
+                        <div class="project-meta">
+                            <h3 class="project-title">Bavière</h3>
+                            <span class="project-caption">2025 · shelf</span>
+                        </div>
+                    </a>
+
+                    <a href="/projects/derniere-recolte.html" class="project-item" data-year="2025" data-dynamic>
+                        <div class="project-image">
+                            <img src="img/derniere-recolte-det.png" alt="Dernière Récolte">
+                        </div>
+                        <div class="project-meta">
+                            <h3 class="project-title">Dernière Récolte</h3>
+                            <span class="project-caption">2025 · sculpture</span>
+
+                        </div>
+                    </a>
+
+                    <a href="/projects/baptistery.html" class="project-item" data-year="2025" data-dynamic>
+                        <div class="project-image">
+                            <img src="img/baptistere.png" alt="Baptistery">
+                        </div>
+                        <div class="project-meta">
+                            <h3 class="project-title">Baptistery</h3>
+                            <span class="project-caption">2025 · brass</span>
+
+                        </div>
+                    </a>
+
+                    <a href="/projects/faune.html" class="project-item" data-year="2024" data-dynamic>
+                        <div class="project-image">
+                            <img src="img/faune-2.png" alt="Faune">
+                        </div>
+                        <div class="project-meta">
+                            <h3 class="project-title">Faune</h3>
+                            <span class="project-caption">2024 · brass</span>
+
+                        </div>
+                    </a>
+
+                    <a href="/projects/bowl.html" class="project-item" data-year="2024" data-dynamic>
+                        <div class="project-image">
+                            <img src="img/trio-bowl.png" alt="Bowls">
+                        </div>
+                        <div class="project-meta">
+                            <h3 class="project-title">Bowls</h3>
+                            <span class="project-caption">2024 · copper</span>
+
+                        </div>
+                    </a>
+
+                    <a href="/projects/shackles&chains.html" class="project-item" data-year="2024" data-dynamic>
+                        <div class="project-image">
+                            <img src="img/shackles&chains-2.png" alt="Shackles & Chains">
+                        </div>
+                        <div class="project-meta">
+                            <h3 class="project-title">Shackles & Chains</h3>
+                            <span class="project-caption">2024 · steel</span>
+
+                        </div>
+                    </a>
+
+                    <a href="/projects/laying-dimes-making-dollars.html" class="project-item" data-year="2024"
+                        data-dynamic>
+                        <div class="project-image">
+                            <img src="img/laying-dimes-making-dollars-0.jpg" alt="Laying Dimes - Making Dollars">
+                        </div>
+                        <div class="project-meta">
+                            <h3 class="project-title">Laying Dimes - Making Dollars</h3>
+                            <span class="project-caption">2024 · fanzine</span>
+
+                        </div>
+                    </a>
+
+                </div>
+
+            </section>
+
+        </div>
+    </main>
+
+</body>
+
+<script>
+    // --- CONTACT ---
+    const toggle = document.getElementById("contactToggle");
+    const panel = document.getElementById("contactPanel");
+
+    toggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        panel.classList.toggle("open");
+    });
+
+    panel.addEventListener("click", (e) => {
+        e.stopPropagation();
+    });
+
+    document.addEventListener("click", () => {
+        panel.classList.remove("open");
+    });
+
+
+    // --- PROJECT VIEW (central) ---
+    const projectView = document.getElementById("project-view");
+    const projectContent = document.querySelector(".project-content");
+
+    function closeProject() {
+        projectView.hidden = true;
+        projectView.innerHTML = "";
+        projectContent.classList.remove("is-detail");
+        clearActiveProject();
+    }
+
+
+    // --- FILTER BY YEAR ---
+    const filters = document.querySelectorAll("[data-filter]");
+    const projects = document.querySelectorAll(".project-item");
+
+    filters.forEach(filter => {
+        filter.addEventListener("click", e => {
+            e.preventDefault();
+
+            // ferme le projet ouvert
+            closeProject();
+
+            const year = filter.dataset.filter;
+
+            // état actif filtre
+            filters.forEach(f => f.classList.remove("active"));
+            filter.classList.add("active");
+
+            // filtrage projets
+            projects.forEach(project => {
+                const match = year === "all" || project.dataset.year === year;
+                project.classList.toggle("is-muted", !match);
+            });
+        });
+    });
+
+
+    // --- INDEX : PROJET ACTIF ---
+    const indexLinks = document.querySelectorAll(".project-index a[href^='projects/']");
+
+    function setActiveProject(url) {
+        indexLinks.forEach(link => {
+            link.classList.toggle("is-active", link.href === url);
+        });
+    }
+
+    function clearActiveProject() {
+        indexLinks.forEach(link => link.classList.remove("is-active"));
+    }
+
+
+    // --- ROUTER SIMPLE PROPRE ---
+
+    function loadProject(url, push = true) {
+
+        fetch(url)
+            .then(res => res.text())
+            .then(html => {
+
+                projectView.innerHTML = html;
+                projectView.hidden = false;
+                projectContent.classList.add("is-detail");
+
+                setActiveProject(url);
+
+                if (push) {
+                    const cleanUrl = "/" + url.replace(".html", "");
+                    history.pushState({ project: url }, "", cleanUrl);
+                }
+            });
+    }
+
+
+    // interception clics
+    document.querySelectorAll("[data-dynamic]").forEach(link => {
+
+        link.addEventListener("click", e => {
+            e.preventDefault();
+
+            const url = link.getAttribute("href"); // 🔥 IMPORTANT
+            loadProject(url);
+        });
+
+    });
+
+
+    // bouton retour navigateur
+    window.addEventListener("popstate", (event) => {
+
+        if (event.state && event.state.project) {
+            loadProject(event.state.project, false);
+        } else {
+            closeProject();
+            history.replaceState({}, "", "/");
+        }
+
+    });
+
+
+    // auto-load si on arrive directement sur /projects/xxx
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const path = window.location.pathname;
+
+        if (path.startsWith("/projects/")) {
+            const url = path.replace("/", "") + ".html";
+            loadProject(url, false);
+        }
+
+    });
+
+
+</script>
+
+</html>
