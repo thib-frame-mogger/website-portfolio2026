@@ -62,8 +62,8 @@
         }
 
         .header-inner {
-            max-width: 1480px;
-            margin: 0 auto;
+            max-width: 100%;
+            margin: 0px 20px;
             padding: 6px 0;
             display: flex;
             align-items: center;
@@ -96,6 +96,26 @@
             color: black;
         }
 
+        .site-branding {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+        }
+
+        .site-note {
+            font-size: 1rem;
+            font-weight: 300;
+            font-style: italic;
+            opacity: 0.8;
+            white-space: nowrap;
+        }
+
+        @media (max-width: 900px) {
+            .site-note {
+                display: none;
+            }
+        }
+
         .contact-button {
             font-family: inherit;
             font-size: 1rem;
@@ -121,7 +141,7 @@
 
         .contact-inner {
             max-width: 1480px;
-            margin: 0 auto;
+            margin: 0px 16px;
             padding: 4px 0;
             font-size: 1rem;
             font-weight: 300;
@@ -152,18 +172,17 @@
         }
 
         .site-main {
-            padding-top: 8px;
+            padding: 4px 20px 15vh 20px;
         }
 
         .main-inner {
-            max-width: 1480px;
-            margin: 0 auto;
+            max-width: 100%;
             display: flex;
         }
 
         /* Colonne gauche : sommaire */
         .project-index {
-            width: 12%;
+            width: 8%;
             min-width: 100px;
             padding-right: 8px;
         }
@@ -349,12 +368,146 @@
         }
 
         /* =========================================
+   BASE DETAIL PROJET
+========================================= */
+
+        .project-detail {
+            width: 100%;
+            padding-top: 4px;
+        }
+
+        /* Classe standard réutilisable */
+        .project--standard {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .project--standard .project-detail-title,
+        .project--standard .project-detail-text {
+            width: 100%;
+        }
+
+        .project--standard .project-detail-image {
+            margin-bottom: 4rem;
+        }
+
+        .project--standard .project-detail-image img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        .project--standard .project-detail-gallery {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .project--standard .project-detail-gallery img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+        }
+
+        /* Titre & texte génériques */
+
+        .project-detail-title {
+            margin-top: 24px;
+            font-size: 1.2rem;
+            font-weight: 400;
+        }
+
+        .project-detail-text {
+            margin-top: 12px;
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        /* =========================================
+   EDELWEISS — HERO OVERLAY (TOP RIGHT)
+========================================= */
+
+        .project--edelweiss {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Hero container */
+
+        .project--edelweiss .project-hero {
+            position: relative;
+            width: 100%;
+        }
+
+        .project--edelweiss .project-hero img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Bloc texte en haut à droite */
+
+        .project--edelweiss .project-hero-text {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            max-width: 420px;
+        }
+
+        /* Ajustement typo */
+
+        .project--edelweiss .project-detail-title {
+            margin: 0 0 1rem 0;
+            font-size: 1.4rem;
+            font-weight: 400;
+        }
+
+        .project--edelweiss .project-detail-text {
+            margin: 0;
+            font-size: 0.9rem;
+            font-weight: 300;
+            line-height: 1.4;
+        }
+
+        /* =========================================
+   BAVIÈRE — HERO OVERLAY
+========================================= */
+
+        .project--baviere .project-hero {
+            position: relative;
+            width: 100%;
+        }
+
+        .project--baviere .project-hero img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Bloc texte posé en haut à droite */
+
+        .project--baviere .project-hero-text {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            max-width: 400px;
+        }
+
+        /* =========================================
    DERNIÈRE RÉCOLTE
 ========================================= */
 
         .project--derniere-recolte {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1400px;
             margin: 0 auto;
         }
 
@@ -416,7 +569,7 @@
             margin: 5rem auto 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 3rem;
+            gap: 1rem;
         }
 
         .project--derniere-recolte .project-gallery-stack img {
@@ -424,6 +577,51 @@
             height: auto;
             display: block;
             object-fit: contain;
+        }
+
+        /* HERO SPLIT LAYOUT */
+
+        .project--derniere-recolte .project-hero-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            margin-top: 3rem;
+        }
+
+        /* GIF à gauche */
+
+        .project--derniere-recolte .project-detail-image {
+            justify-content: flex-start;
+        }
+
+        .project--derniere-recolte .project-detail-image img {
+            width: 30%;
+            /* tu gardes exactement ton ratio actuel */
+        }
+
+        /* Bloc texte à droite */
+
+        .project--derniere-recolte .project-hero-text {
+            padding-left: 2rem;
+        }
+
+        /* On annule le centrage précédent */
+
+        .project--derniere-recolte .project-detail-title,
+        .project--derniere-recolte .project-detail-text {
+            margin: 0;
+            text-align: left;
+        }
+
+        @media (max-width: 900px) {
+            .project--derniere-recolte .project-hero-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .project--derniere-recolte .project-detail-image img {
+                width: 60%;
+            }
         }
 
         /* =========================================
@@ -461,14 +659,39 @@
         }
 
         /* =========================================
+   LAYING DIMES — HERO OVERLAY (LEFT)
+========================================= */
+
+        .project--laying-dimes-making-dollars .project-hero {
+            position: relative;
+            width: 100%;
+        }
+
+        .project--laying-dimes-making-dollars .project-hero img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: contain;
+        }
+
+        /* Texte en haut à gauche */
+
+        .project--laying-dimes-making-dollars .project-hero-text {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            max-width: 500px;
+        }
+
+        /* =========================================
    SHACKLES & CHAINS
 ========================================= */
 
         .project--shackles-chains {
             width: 100%;
-            max-width: 1200px;
+            max-width: none;
             /* ← TU REDIMENSIONNES ICI */
-            margin: 0 auto;
+            margin: 0;
         }
 
         /* Le texte et le titre suivent la largeur projet */
@@ -481,7 +704,7 @@
         /* Première image (hero silencieux) */
 
         .project--shackles-chains .project-detail-image {
-            margin-bottom: 4rem;
+            margin-bottom: 2rem;
         }
 
         .project--shackles-chains .project-detail-image img {
@@ -531,191 +754,196 @@
         }
 
         /* =========================================
-   BOWLS
-   ========================================= */
+   SHACKLES & CHAINS — HERO OVERLAY
+========================================= */
 
-        .project--bowls {
-            width: 100%;
-            max-width: 900px;
-            /* ← TU REDIMENSIONNES ICI */
-            margin: 0 auto;
+        .project--shackles-chains .project-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: start;
         }
 
-        /* Le titre et le texte suivent naturellement */
+        /* Image à gauche */
 
-        .project--bowls .project-detail-title,
-        .project--bowls .project-detail-text {
-            width: 100%;
-        }
-
-        /* Hero image */
-
-        .project--bowls .project-detail-image {
-            margin-bottom: 4rem;
-        }
-
-        .project--bowls .project-detail-image img {
+        .project--shackles-chains .project-hero img {
             width: 100%;
             height: auto;
-            display: block;
             object-fit: contain;
         }
 
-        /* Galerie 3 colonnes scalable */
+        /* Texte plus haut à droite */
 
-        .project--bowls .project-detail-gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 5rem;
+        .project--shackles-chains .project-hero-text {
+            position: static;
+            padding-left: 3rem;
+            max-width: 600px;
         }
 
-        .project--bowls .project-detail-gallery img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
+        /* Ajustement marges */
+
+        .project--shackles-chains .project-detail-title {
+            margin: 0 0 1rem 0;
         }
 
-        /* =========================================
-   fAUNE
-   ========================================= */
-
-        .project--faune {
-            width: 100%;
-            max-width: 900px;
-            /* ← TU REDIMENSIONNES ICI */
-            margin: 0 auto;
+        .project--shackles-chains .project-detail-text {
+            margin: 0;
         }
 
-        /* Le titre et le texte suivent naturellement */
+        /* Responsive */
 
-        .project--faune .project-detail-title,
-        .project--faune .project-detail-text {
-            width: 100%;
-        }
+        @media (max-width: 900px) {
+            .project--shackles-chains .project-hero-text {
+                position: static;
+                margin-top: 2rem;
+                max-width: 100%;
+            }
 
-        /* Hero image */
-
-        .project--faune .project-detail-image {
-            margin-bottom: 4rem;
-        }
-
-        .project--faune .project-detail-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: contain;
-        }
-
-        /* Galerie 3 colonnes scalable */
-
-        .project--faune .project-detail-gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 5rem;
-        }
-
-        .project--faune .project-detail-gallery img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
+            .project--shackles-chains .project-hero img {
+                width: 100%;
+            }
         }
 
         /* =========================================
-   BAPTISTERY
-   ========================================= */
+   BAPTISTERY — HERO SPLIT
+========================================= */
 
-        .project--baptistery {
-            width: 100%;
-            max-width: 900px;
-            /* ← TU REDIMENSIONNES ICI */
-            margin: 0 auto;
+        .project--baptistery .project-hero-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            margin-bottom: 1rem;
         }
 
-        /* Le titre et le texte suivent naturellement */
-
-        .project--baptistery .project-detail-title,
-        .project--baptistery .project-detail-text {
-            width: 100%;
-        }
-
-        /* Hero image */
+        /* Image calée à gauche */
 
         .project--baptistery .project-detail-image {
-            margin-bottom: 4rem;
+            display: flex;
+            justify-content: flex-start;
         }
 
+        /* 50% de sa taille actuelle */
+
         .project--baptistery .project-detail-image img {
-            width: 100%;
+            width: 70%;
             height: auto;
-            display: block;
             object-fit: contain;
         }
 
-        /* Galerie 3 colonnes scalable */
+        /* Texte à droite */
 
-        .project--baptistery .project-detail-gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 5rem;
+        .project--baptistery .project-hero-text {
+            padding-left: 1rem;
         }
 
-        .project--baptistery .project-detail-gallery img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
+        /* On annule les marges standard */
+
+        .project--baptistery .project-detail-title {
+            margin-top: 0;
+        }
+
+        .project--baptistery .project-detail-text {
+            margin-top: 1rem;
         }
 
         /* =========================================
-  BAVIERE
-   ========================================= */
+   FAUNE — HERO SPLIT
+========================================= */
 
-        .project--baviere {
-            width: 100%;
-            max-width: 900px;
-            /* ← TU REDIMENSIONNES ICI */
-            margin: 0 auto;
+        .project--faune .project-hero-split {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            margin-bottom: 2rem;
         }
 
-        /* Le titre et le texte suivent naturellement */
+        /* Image à gauche */
 
-        .project--baviere .project-detail-title,
-        .project--baviere .project-detail-text {
-            width: 100%;
+        .project--faune .project-detail-image {
+            display: flex;
+            justify-content: flex-start;
         }
 
-        /* Hero image */
+        /* Image réduite à 60% */
 
-        .project--baviere .project-detail-image {
-            margin-bottom: 4rem;
+        .project--faune .project-detail-image img {
+            width: 80%;
+            height: auto;
+            object-fit: contain;
         }
 
-        .project--baviere .project-detail-image img {
+        /* Texte à droite */
+
+        .project--faune .project-hero-text {
+            padding-left: 3rem;
+        }
+
+        /* Ajustement marges */
+
+        .project--faune .project-detail-title {
+            margin-top: 0;
+        }
+
+        .project--faune .project-detail-text {
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 900px) {
+            .project--faune .project-hero-split {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .project--faune .project-detail-image img {
+                width: 75%;
+            }
+
+            .project--faune .project-hero-text {
+                padding-left: 0;
+            }
+        }
+
+        /* =========================================
+   BOWLS — HERO OVERLAY TOP RIGHT
+========================================= */
+
+        .project--bowls .project-hero {
+            position: relative;
             width: 100%;
+            margin-bottom: 2rem;
+        }
+
+        .project--bowls .project-hero img {
+            width: 70%;
             height: auto;
             display: block;
             object-fit: contain;
         }
 
-        /* Galerie 3 colonnes scalable */
+        /* Texte en haut à droite */
 
-        .project--baviere .project-detail-gallery {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 5rem;
+        .project--bowls .project-hero-text {
+            position: absolute;
+            top: 40px;
+            right: 40px;
+            max-width: 420px;
         }
 
-        .project--baviere .project-detail-gallery img {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
+        /* Ajustement typo */
+
+        .project--bowls .project-detail-title {
+            margin: 0 0 1rem 0;
+        }
+
+        .project--bowls .project-detail-text {
+            margin: 0;
+        }
+
+        @media (max-width: 900px) {
+            .project--bowls .project-hero-text {
+                position: static;
+                margin-top: 2rem;
+                max-width: 100%;
+            }
         }
     </style>
 </head>
@@ -734,6 +962,10 @@
                 </svg>
                 <span class="site-title">THIBAULT ZAJAC</span>
             </a>
+            <span class="site-note">
+                This website is an evolving archive. Selected works and documentation are being progressively
+                updated.
+            </span>
 
             <button class="contact-button" id="contactToggle">
                 CONTACT
@@ -785,19 +1017,21 @@
                     <li><a href="projects/edelweiss.html" data-dynamic>Edelweiss</a></li>
                     <li><a href="projects/zeppelin.html" data-dynamic>Zeppelin</a></li>
                     <li><a href="projects/lambert.html" data-dynamic>Lambert</a></li>
-
+                    <br>
                     <li><a href="#" data-filter="2025">2025</a></li>
                     <li><a href="projects/baviere.html" data-dynamic>Bavière</a></li>
                     <li><a href="projects/derniere-recolte.html" data-dynamic>Dernière Récolte</a></li>
                     <li><a href="projects/baptistery.html" data-dynamic>Baptistery</a></li>
-
+                    <br>
                     <li><a href="#" data-filter="2024">2024</a></li>
 
-                    <li><a href="projects/candlestick.html" data-dynamic>Candlestick</a></li>
-                    <li><a href="projects/bol.html" data-dynamic>Bowls</a></li>
+                    <li><a href="projects/faune.html" data-dynamic>Faune</a></li>
+                    <li><a href="projects/bowl.html" data-dynamic>Bowls</a></li>
                     <li><a href="projects/shackles-chains.html" data-dynamic>Shackles & Chains</a></li>
                     <li><a href="projects/laying-dimes-making-dollars.html" data-dynamic>Laying Dimes - Making
                             Dollars</a></li>
+                    <br>
+                    <li><a href="projects/aboutme.html" data-dynamic>About me</a></li>
                 </ul>
             </aside>
 
@@ -1056,22 +1290,21 @@
 
 
     // auto-load si on arrive directement sur /projects/xxx
-   document.addEventListener("DOMContentLoaded", () => {
+    document.addEventListener("DOMContentLoaded", () => {
 
-    const path = window.location.pathname;
+        const path = window.location.pathname;
 
-    if (path.includes("/projects/")) {
+        if (path.includes("/projects/")) {
 
-        const cleanPath = path.substring(path.indexOf("projects/"));
-        const url = cleanPath + ".html";
+            const cleanPath = path.substring(path.indexOf("projects/"));
+            const url = cleanPath + ".html";
 
-        loadProject(url, false);
-    }
+            loadProject(url, false);
+        }
 
-});
+    });
 
 
 </script>
-
 
 </html>
