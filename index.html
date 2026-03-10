@@ -945,6 +945,60 @@
                 max-width: 100%;
             }
         }
+
+        /* =========================================
+   ABOUT ME — HERO SPLIT
+========================================= */
+
+        .project--aboutme .project-hero {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        /* Image à gauche */
+
+        .project--aboutme .project-hero img {
+            width: 80%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        /* Texte à droite */
+
+        .project--aboutme .project-hero-text {
+            padding-left: 3rem;
+            max-width: 600px;
+        }
+
+        /* Ajustement des marges */
+
+        .project--aboutme .project-detail-title {
+            margin-top: 0;
+        }
+
+        .project--aboutme .project-detail-text {
+            margin-top: 1rem;
+        }
+
+        /* Responsive */
+
+        @media (max-width: 900px) {
+
+            .project--aboutme .project-hero {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .project--aboutme .project-hero img {
+                width: 70%;
+            }
+
+            .project--aboutme .project-hero-text {
+                padding-left: 0;
+            }
+        }
     </style>
 
     <link rel="icon" type="image/svg+xml" href="img/logo.svg">
@@ -1016,9 +1070,7 @@
                     <li><a href="#" data-filter="all">All</a></li>
 
                     <li><a href="#" data-filter="2026">2026</a></li>
-                    <li><a href="projects/withered.html" data-dynamic>Withered</a></li>
                     <li><a href="projects/edelweiss.html" data-dynamic>Edelweiss</a></li>
-                    <li><a href="projects/zeppelin.html" data-dynamic>Zeppelin</a></li>
                     <li><a href="projects/lambert.html" data-dynamic>Lambert</a></li>
                     <br>
                     <li><a href="#" data-filter="2025">2025</a></li>
@@ -1034,7 +1086,7 @@
                     <li><a href="projects/laying-dimes-making-dollars.html" data-dynamic>Laying Dimes - Making
                             Dollars</a></li>
                     <br>
-                    <li><a href="projects/aboutme.html" data-dynamic>About me</a></li>
+                    <li><a href="projects/about-me.html" data-dynamic>About me</a></li>
                 </ul>
             </aside>
 
@@ -1044,19 +1096,6 @@
 
                 <div class="projects-grid">
 
-                    <a href="projects/withered.html" class="project-item" data-year="2026" data-dynamic>
-
-                        <div class="project-image">
-                            <img src="img/withered3.png" alt="Withered">
-                        </div>
-
-                        <div class="project-meta">
-                            <h3 class="project-title">Withered</h3>
-                            <span class="project-caption">2026 · lampshade</span>
-                        </div>
-
-                    </a>
-
                     <a href="projects/edelweiss.html" class="project-item" data-year="2026" data-dynamic>
                         <div class="project-image">
                             <img src="img/edelweiss-render.png" alt="Edelweiss">
@@ -1064,16 +1103,6 @@
                         <div class="project-meta">
                             <h3 class="project-title">Edelweiss</h3>
                             <span class="project-caption">2026 · light fixture</span>
-                        </div>
-                    </a>
-
-                    <a href="projects/zeppelin.html" class="project-item" data-year="2026" data-dynamic>
-                        <div class="project-image">
-                            <img src="img/zeppelin-render.png" alt="Zeppelin">
-                        </div>
-                        <div class="project-meta">
-                            <h3 class="project-title">Zeppelin</h3>
-                            <span class="project-caption">2026 · watering can</span>
                         </div>
                     </a>
 
@@ -1175,170 +1204,170 @@
 </body>
 
 <script>
-/* ===============================
-   CONTACT
-================================= */
+    /* ===============================
+       CONTACT
+    ================================= */
 
-const toggle = document.getElementById("contactToggle");
-const panel = document.getElementById("contactPanel");
+    const toggle = document.getElementById("contactToggle");
+    const panel = document.getElementById("contactPanel");
 
-if (toggle && panel) {
-    toggle.addEventListener("click", (e) => {
-        e.stopPropagation();
-        panel.classList.toggle("open");
-    });
-
-    panel.addEventListener("click", (e) => {
-        e.stopPropagation();
-    });
-
-    document.addEventListener("click", () => {
-        panel.classList.remove("open");
-    });
-}
-
-
-/* ===============================
-   PROJECT VIEW (CENTRAL)
-================================= */
-
-const projectView = document.getElementById("project-view");
-const projectContent = document.querySelector(".project-content");
-
-function closeProject() {
-    projectView.hidden = true;
-    projectView.innerHTML = "";
-    projectContent.classList.remove("is-detail");
-    clearActiveProject();
-}
-
-
-/* ===============================
-   FILTER BY YEAR
-================================= */
-
-const filters = document.querySelectorAll("[data-filter]");
-const projects = document.querySelectorAll(".project-item");
-
-filters.forEach(filter => {
-    filter.addEventListener("click", e => {
-        e.preventDefault();
-
-        closeProject();
-
-        const year = filter.dataset.filter;
-
-        filters.forEach(f => f.classList.remove("active"));
-        filter.classList.add("active");
-
-        projects.forEach(project => {
-            const match = year === "all" || project.dataset.year === year;
-            project.classList.toggle("is-muted", !match);
+    if (toggle && panel) {
+        toggle.addEventListener("click", (e) => {
+            e.stopPropagation();
+            panel.classList.toggle("open");
         });
-    });
-});
 
-
-/* ===============================
-   INDEX : PROJET ACTIF
-================================= */
-
-const indexLinks = document.querySelectorAll(".project-index a[data-dynamic]");
-
-function setActiveProject(url) {
-    indexLinks.forEach(link => {
-        const linkUrl = link.getAttribute("href");
-        link.classList.toggle("is-active", linkUrl === url);
-    });
-}
-
-function clearActiveProject() {
-    indexLinks.forEach(link => link.classList.remove("is-active"));
-}
-
-
-/* ===============================
-   ROUTER SIMPLE PROPRE
-================================= */
-
-function loadProject(url, push = true) {
-
-    fetch(url)
-        .then(res => res.text())
-        .then(html => {
-
-            projectView.innerHTML = html;
-            projectView.hidden = false;
-            projectContent.classList.add("is-detail");
-
-            setActiveProject(url);
-
-            if (push) {
-                // transforme projects/nom.html → /nom
-                const cleanUrl = "/" + url
-                    .replace("projects/", "")
-                    .replace(".html", "");
-
-                history.pushState({ project: url }, "", cleanUrl);
-            }
-        })
-        .catch(() => {
-            console.error("Erreur chargement projet :", url);
+        panel.addEventListener("click", (e) => {
+            e.stopPropagation();
         });
-}
 
-
-/* ===============================
-   INTERCEPTION DES CLICS
-================================= */
-
-document.querySelectorAll("[data-dynamic]").forEach(link => {
-
-    link.addEventListener("click", e => {
-        e.preventDefault();
-
-        const url = link.getAttribute("href");
-        loadProject(url);
-    });
-
-});
-
-
-/* ===============================
-   BOUTON RETOUR NAVIGATEUR
-================================= */
-
-window.addEventListener("popstate", (event) => {
-
-    if (event.state && event.state.project) {
-        loadProject(event.state.project, false);
-    } else {
-        closeProject();
-        history.replaceState({}, "", "/");
+        document.addEventListener("click", () => {
+            panel.classList.remove("open");
+        });
     }
 
-});
 
+    /* ===============================
+       PROJECT VIEW (CENTRAL)
+    ================================= */
 
-/* ===============================
-   AUTO LOAD SI URL DIRECTE
-   (ex: /laying-dimes-making-dollars)
-================================= */
+    const projectView = document.getElementById("project-view");
+    const projectContent = document.querySelector(".project-content");
 
-document.addEventListener("DOMContentLoaded", () => {
-
-    const path = window.location.pathname;
-
-    // si on est sur /nom-du-projet
-    if (path !== "/" && !path.includes("index.html")) {
-
-        const slug = path.replace("/", "");
-        const url = "projects/" + slug + ".html";
-
-        loadProject(url, false);
+    function closeProject() {
+        projectView.hidden = true;
+        projectView.innerHTML = "";
+        projectContent.classList.remove("is-detail");
+        clearActiveProject();
     }
 
-});
+
+    /* ===============================
+       FILTER BY YEAR
+    ================================= */
+
+    const filters = document.querySelectorAll("[data-filter]");
+    const projects = document.querySelectorAll(".project-item");
+
+    filters.forEach(filter => {
+        filter.addEventListener("click", e => {
+            e.preventDefault();
+
+            closeProject();
+
+            const year = filter.dataset.filter;
+
+            filters.forEach(f => f.classList.remove("active"));
+            filter.classList.add("active");
+
+            projects.forEach(project => {
+                const match = year === "all" || project.dataset.year === year;
+                project.classList.toggle("is-muted", !match);
+            });
+        });
+    });
+
+
+    /* ===============================
+       INDEX : PROJET ACTIF
+    ================================= */
+
+    const indexLinks = document.querySelectorAll(".project-index a[data-dynamic]");
+
+    function setActiveProject(url) {
+        indexLinks.forEach(link => {
+            const linkUrl = link.getAttribute("href");
+            link.classList.toggle("is-active", linkUrl === url);
+        });
+    }
+
+    function clearActiveProject() {
+        indexLinks.forEach(link => link.classList.remove("is-active"));
+    }
+
+
+    /* ===============================
+       ROUTER SIMPLE PROPRE
+    ================================= */
+
+    function loadProject(url, push = true) {
+
+        fetch(url)
+            .then(res => res.text())
+            .then(html => {
+
+                projectView.innerHTML = html;
+                projectView.hidden = false;
+                projectContent.classList.add("is-detail");
+
+                setActiveProject(url);
+
+                if (push) {
+                    // transforme projects/nom.html → /nom
+                    const cleanUrl = "/" + url
+                        .replace("projects/", "")
+                        .replace(".html", "");
+
+                    history.pushState({ project: url }, "", cleanUrl);
+                }
+            })
+            .catch(() => {
+                console.error("Erreur chargement projet :", url);
+            });
+    }
+
+
+    /* ===============================
+       INTERCEPTION DES CLICS
+    ================================= */
+
+    document.querySelectorAll("[data-dynamic]").forEach(link => {
+
+        link.addEventListener("click", e => {
+            e.preventDefault();
+
+            const url = link.getAttribute("href");
+            loadProject(url);
+        });
+
+    });
+
+
+    /* ===============================
+       BOUTON RETOUR NAVIGATEUR
+    ================================= */
+
+    window.addEventListener("popstate", (event) => {
+
+        if (event.state && event.state.project) {
+            loadProject(event.state.project, false);
+        } else {
+            closeProject();
+            history.replaceState({}, "", "/");
+        }
+
+    });
+
+
+    /* ===============================
+       AUTO LOAD SI URL DIRECTE
+       (ex: /laying-dimes-making-dollars)
+    ================================= */
+
+    document.addEventListener("DOMContentLoaded", () => {
+
+        const path = window.location.pathname;
+
+        // si on est sur /nom-du-projet
+        if (path !== "/" && !path.includes("index.html")) {
+
+            const slug = path.replace("/", "");
+            const url = "projects/" + slug + ".html";
+
+            loadProject(url, false);
+        }
+
+    });
 </script>
 
 </html>
